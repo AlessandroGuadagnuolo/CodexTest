@@ -53,6 +53,30 @@ function eventDateKey(item) {
   return Number.isNaN(date.getTime()) ? String(item.start).slice(0, 10) : safeDateKey(date);
 }
 
+function nextDateKey(value) {
+  const date = new Date(String(value).slice(0, 10) + 'T12:00:00');
+  if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
+  date.setDate(date.getDate() + 1);
+  return safeDateKey(date);
+}
+
+function itemOccursOnDate(item, dateKey) {
+  if (item.allDay) {
+    const start = String(item.start || '').slice(0, 10);
+    const end = String(item.end || '').slice(0, 10) || nextDateKey(start);
+    return dateKey >= start && dateKey < end;
+  }
+
+  const start = new Date(item.start);
+  const end = new Date(item.end);
+  if (Number.isNaN(start.getTime())) return eventDateKey(item) === dateKey;
+  if (Number.isNaN(end.getTime())) return safeDateKey(start) === dateKey;
+  const dayStart = new Date(dateKey + 'T00:00:00');
+  const dayEnd = new Date(dayStart);
+  dayEnd.setDate(dayEnd.getDate() + 1);
+  return start < dayEnd && end > dayStart;
+}
+
 function itemStartTime(item) {
   if (item.allDay) return 'Tutto il giorno';
   const date = new Date(item.start);
@@ -75,13 +99,13 @@ function selectedItems() {
       id: task.id,
       title: task.title,
       start: task.dueDate,
-      end: task.dueDate,
+      end: nextDateKey(task.dueDate),
       allDay: true,
       isTask: true,
       calendarName: task.listName,
       color: '#8068ad'
     })))
-    .filter((item) => eventDateKey(item) === safeDateKey(selectedDate))
+    .filter((item) => itemOccursOnDate(item, safeDateKey(selectedDate)))
     .sort((a, b) => String(a.start).localeCompare(String(b.start)));
 }
 
@@ -143,9 +167,9 @@ function renderCalendar() {
     cell.append(element('span', 'day-number', String(date.getDate())));
     const dayItems = state.events
       .concat(state.tasks.filter((task) => task.dueDate).map((task) => ({
-        id: task.id, title: task.title, start: task.dueDate, allDay: true, isTask: true
+        id: task.id, title: task.title, start: task.dueDate, end: nextDateKey(task.dueDate), allDay: true, isTask: true
       })))
-      .filter((item) => eventDateKey(item) === key);
+      .filter((item) => itemOccursOnDate(item, key));
     dayItems.slice(0, 2).forEach((item) => {
       const line = element('span', 'day-event' + (item.isTask ? ' task' : ''), item.title);
       cell.append(line);
