@@ -1,0 +1,48 @@
+{
+  "name": "codex-calendar",
+  "version": "0.1.0",
+  "description": "Calendario desktop locale per Google Calendar, Google Tasks e Microsoft Outlook, con feed iCalendar per Lumabar.",
+  "main": "src/main/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron .",
+    "package:dir": "electron-builder --dir --win",
+    "dist:win": "electron-builder --win nsis --x64"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.1"
+  },
+  "build": {
+    "appId": "it.codextest.calendar",
+    "productName": "Calendario Unificato",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true
+    }
+  }
+}

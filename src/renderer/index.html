@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:">
+    <title>Calendario Unificato</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">C</div>
+          <div><strong>Calendario</strong><span>UNIFICATO</span></div>
+        </div>
+        <nav class="navigation" aria-label="Sezioni">
+          <button class="nav-button active" data-view="calendar"><span>▦</span> Calendario</button>
+          <button class="nav-button" data-view="tasks"><span>✓</span> Google Tasks</button>
+          <button class="nav-button" data-view="accounts"><span>◎</span> Account</button>
+          <button class="nav-button" data-view="settings"><span>⚙</span> Impostazioni</button>
+        </nav>
+        <div class="sidebar-status">
+          <div class="status-dot" id="feed-dot"></div>
+          <div><strong id="feed-status">Avvio feed locale…</strong><span>Widget Lumabar</span></div>
+        </div>
+        <div class="sidebar-footer">I dati restano su questo PC</div>
+      </aside>
+      <main class="main-area">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow" id="view-eyebrow">IL TUO TEMPO, INSIEME</div>
+            <h1 id="view-title">Calendario</h1>
+          </div>
+          <div class="top-actions">
+            <span class="sync-label" id="sync-label">Non sincronizzato</span>
+            <button class="icon-button" id="sync-button" title="Sincronizza ora" aria-label="Sincronizza ora">↻</button>
+          </div>
+        </header>
+        <section class="content" id="content"></section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

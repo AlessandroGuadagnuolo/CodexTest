@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Avvia Calendario Unificato",
+      "type": "shell",
+      "command": "npm",
+      "args": ["start"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Crea installer Windows x64",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "dist:win"],
+      "problemMatcher": []
+    }
+  ]
+}

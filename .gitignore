@@ -1,0 +1,10 @@
+node_modules/
+.npm-cache/
+release/
+dist/
+*.log
+appsettings.local.json
+credentials.local.json
+.env
+.env.*
+_lumabar_probe/
