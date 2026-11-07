@@ -1,6 +1,6 @@
-# Calendario Unificato
+# CodexTest · Calendario Unificato
 
-Project test made with Codex.
+Project test made with codex
 
 Applicazione desktop per Windows 10 x64 che riunisce gli eventi dei calendari Google e Microsoft in una vista locale e pubblica un feed iCalendar su loopback per il widget Calendario di Lumabar.
 
